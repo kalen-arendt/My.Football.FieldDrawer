@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2df54ddaebaac4a9c6d98f306c2c2d, type: 3}
+  m_Name: Field Style - Retro - Greyscale
+  m_EditorClassIdentifier: 
+  grass: {fileID: 21300000, guid: af83ade958187f547b55d6a55670e2f0, type: 3}
+  bkgGrassColor: {r: 0, g: 0.6886792, b: 0.34972945, a: 1}
+  grassColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0, g: 0, b: 0, a: 1}
+  netColor: {r: 0.4075793, g: 0.9811321, b: 0.4026344, a: 1}
+  wZoneColors:
+  - {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.15686275}
+  - {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0.19607843}
+  dZoneColors:
+  - {r: 0.20225169, g: 0.4245283, b: 0.32270765, a: 0.39215687}
+  - {r: 0.253649, g: 0.5660378, b: 0.39988455, a: 0.39215687}

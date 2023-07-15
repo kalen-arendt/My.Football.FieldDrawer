@@ -1,0 +1,15 @@
+{
+  "name": "com.kalenarendt.football.field-drawer",
+  "version": "1.0.0",
+  "displayName": "Field Drawer",
+  "description": "A module to draw football fields with zones.",
+  "unity": "2019.1",
+  "keywords": [
+    "football",
+    "field"
+  ],
+  "author": {
+    "name": "Kalen Arendt",
+    "email": "dev.kalenarendt@gmail.com"
+  }
+}

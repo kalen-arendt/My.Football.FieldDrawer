@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7307452244829417971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7425342601622030234}
+  - component: {fileID: 3522429848117405670}
+  m_Layer: 8
+  m_Name: Field Drawer - Default - GB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &7425342601622030234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307452244829417971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3522429848117405670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307452244829417971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb409df4b6aa704288226f754162d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 6523fc1cf108beb49bc344cb88d2fd10, type: 2}
+  components: {fileID: 11400000, guid: 0a2cfa337d1659c4bbbf23d42e4a27f9, type: 2}
+  fieldStyle: {fileID: 11400000, guid: 3c23cf5e3371b164384658ff1d3544b0, type: 2}
+  zoneStyle: {fileID: 11400000, guid: f31af754227dbef4bb00de50c2770b60, type: 2}
+  drawer:
+    config: {fileID: 11400000, guid: 6523fc1cf108beb49bc344cb88d2fd10, type: 2}
+    components: {fileID: 11400000, guid: 0a2cfa337d1659c4bbbf23d42e4a27f9, type: 2}
+    fieldStyle: {fileID: 11400000, guid: 3c23cf5e3371b164384658ff1d3544b0, type: 2}
+    zoneStyle: {fileID: 11400000, guid: f31af754227dbef4bb00de50c2770b60, type: 2}
+    transform: {fileID: 7425342601622030234}

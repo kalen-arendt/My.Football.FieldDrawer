@@ -1,0 +1,14 @@
+{
+    "name": "com.kalenarendt.football.field-drawer",
+    "rootNamespace": "Football.Core.FieldDrawer",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
