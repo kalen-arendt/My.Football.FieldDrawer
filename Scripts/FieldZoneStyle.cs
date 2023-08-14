@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Football.Core.FieldDrawing
+namespace My.Football.Fields
 {
-	[CreateAssetMenu( fileName = "Zone Style - ", menuName = "Field/Zone Style" )]
+   [CreateAssetMenu( fileName = "Zone Style - ", menuName = "Field/Zone Style" )]
 	public class FieldZoneStyle: ScriptableObject
 	{
 		[SerializeField] Material zoneLinesMaterial;

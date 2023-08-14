@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Football.Core.FieldDrawing
+namespace My.Football.Fields
 {
 	/// <summary>
 	/// prefabs that are used to create parts of the field.

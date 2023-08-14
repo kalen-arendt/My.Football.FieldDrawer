@@ -1,7 +1,10 @@
 {
-    "name": "com.kalenarendt.football.field-drawer",
+    "name": "My.Football.Unity.FieldDrawer",
     "rootNamespace": "Football.Core.FieldDrawer",
-    "references": [],
+    "references": [
+        "GUID:d4a2d6b348f55da479a28f7d98257369",
+        "GUID:82abebfe439ecd142931e07b41e8c697"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

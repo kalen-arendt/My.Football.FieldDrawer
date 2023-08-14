@@ -1,7 +1,7 @@
 {
-  "name": "com.kalenarendt.my.football.fielddrawer",
+  "name": "com.kalenarendt.my.football.unity.field-drawer",
   "version": "1.0.1",
-  "displayName": "My.Football.FieldDrawer",
+  "displayName": "My.Football.Unity.FieldDrawer",
   "description": "A module to draw football fields with zones.",
   "unity": "2018.1",
   "keywords": [
