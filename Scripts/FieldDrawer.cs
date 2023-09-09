@@ -1,38 +1,18 @@
-﻿using My.Unity.Creational;
+﻿using My.Football.Fields.Setup;
+using My.Unity.Creational;
 using My.Unity.Debugging;
 
 using UnityEngine;
 
 namespace My.Football.Fields
 {
-   [System.Serializable]
-   public class FieldConfig : IFieldConfig
-   {
-      [SerializeField] private FieldZoneModel zoneModel;
-      [SerializeField] private FieldComponents components;
-      [SerializeField] private FieldStyle fieldStyle;
-      [SerializeField] private FieldZoneStyle zoneStyle;
-
-      public FieldZoneModel ZoneModel => zoneModel;
-      public FieldComponents Components => components;
-      public FieldStyle FieldStyle => fieldStyle;
-      public FieldZoneStyle ZoneStyle => zoneStyle;
-   }
-   
-   public interface IFieldConfig
-   {
-      FieldZoneModel ZoneModel { get; }
-      FieldComponents Components { get; }
-      FieldStyle FieldStyle { get; }
-      FieldZoneStyle ZoneStyle { get; }
-   }
-
    /// <summary>
    /// Draw a Field based on a FieldConfig and FieldStyle
    /// </summary>
    [System.Serializable]
    public class FieldDrawer
    {
+      [SerializeField] private FieldCategoryConfig fieldConfig;
       [SerializeField] private FieldZoneModel zoneModel;
       [SerializeField] private FieldComponents components;
       [SerializeField] private FieldStyle fieldStyle;
@@ -79,11 +59,8 @@ namespace My.Football.Fields
             width = zoneModel.Width;
             length = zoneModel.Length;
 
-            // UNDONE
-            //transform.localPosition = Vector2.zero;
-
-
             DrawGrass();
+            DrawZones();
             DrawFieldMarkings();
             DrawZoneBoundryLines();
 
@@ -117,7 +94,7 @@ namespace My.Football.Fields
             transform,
             "Background Grass",
             Vector2.zero,
-            components.Grass,
+            components.Square,
             fieldStyle.BackgroundGrassColor,
             new Vector2(width + (GRASS_OUTLINE_WIDTH * 2), length + (GRASS_OUTLINE_WIDTH * 2)),
             FIELD_SORTING_LAYER,
@@ -126,15 +103,18 @@ namespace My.Football.Fields
 
          SpriteRendererFactory.CreateLocal(
             transform,
-            "Grass",
+            "Field Grass",
             Vector2.zero,
-            components.Grass,
+            components.Square,
             fieldStyle.GrassColor,
             new Vector2(width, length),
             FIELD_SORTING_LAYER,
             GRASS_ORDER
          );
+      }
 
+      private void DrawZones ()
+      {
          Transform parent = TransformFactory.CreateChild("Zones", transform);
 
          DrawXZones(TransformFactory.CreateChild("X-Zones", parent));
@@ -156,7 +136,7 @@ namespace My.Football.Fields
                parent: parent,
                name: "XZone " + (i + 1),
                position: new Vector2(x + (zoneWidths[i] / 2f), 0),
-               sprite: components.Grass,
+               sprite: components.Square,
                color: fieldStyle.WZoneColors[i % fieldStyle.WZoneColors.Length],
                size: new Vector2(zoneWidths[i], length),
                layerName: FIELD_SORTING_LAYER,
@@ -183,7 +163,7 @@ namespace My.Football.Fields
                parent: parent,
                name: "YZone " + (i + 1),
                position: new Vector2(0, y + (zoneDepth[i] / 2f)),
-               sprite: components.Grass,
+               sprite: components.Square,
                color: fieldStyle.DZoneColors[i % fieldStyle.DZoneColors.Length],
                size: new Vector2(width, zoneDepth[i]),
                layerName: FIELD_SORTING_LAYER,
@@ -202,68 +182,47 @@ namespace My.Football.Fields
 
       private void DrawFieldMarkings ()
       {
-         Transform linesParent = TransformFactory.CreateChild("Lines", transform);
+         Transform parent = TransformFactory.CreateChild("Field Markings", transform);
 
-         DrawOutline(linesParent);
-         DrawHalfLine(linesParent);
-         DrawCenter(linesParent);
-         DrawCornerArcs(linesParent);
-         DrawPenaltyAreas(linesParent);
+         DrawOutline(parent);
+         DrawHalfLine(parent);
+         DrawCenter(parent);
+         
+         DrawHalfFieldMarkings(parent, -1);
+         DrawHalfFieldMarkings(parent, +1);
 
-         foreach (SpriteRenderer sprite in linesParent.GetComponentsInChildren<SpriteRenderer>())
-         {
-            sprite.sortingLayerName = FIELD_SORTING_LAYER;
-            sprite.sortingOrder = LINES_ORDER;
-
-            sprite.color = fieldStyle.LineColor;
-         }
-
-         foreach (LineRenderer line in linesParent.GetComponentsInChildren<LineRenderer>())
-         {
-            line.sortingLayerName = FIELD_SORTING_LAYER;
-            line.sortingOrder = LINES_ORDER;
-
-            line.startColor = line.endColor = fieldStyle.LineColor;
-            line.startWidth = line.endWidth = fieldStyle.LineWidth;
-         }
-
-         DrawGoals();
+         DrawCornerArcs(parent);
       }
 
       private void DrawOutline (Transform parent)
       {
-         float
-            halfLineWidth = fieldStyle.LineWidth / 2,
-            x = (width / 2) - halfLineWidth,
-            y = (length / 2) - halfLineWidth;
+         float halfLineWidth = fieldConfig.HalfLineWidth;
+         float x = (width / 2) - halfLineWidth;
+         float y = (length / 2) - halfLineWidth;
 
-         LineRenderer outline = GameObject.Instantiate(components.LineRenderer, parent);
-         outline.name = "Outline";
-
-         outline.loop = true;
-         outline.positionCount = 4; //5 ;
-         outline.SetPositions(
+         CreateLine(
+            parent,
+            "Outline",
             new Vector3[4] {
                new Vector2(-x, -y),
                new Vector2(+x, -y),
                new Vector2(+x, +y),
-               new Vector2(-x, +y)//,
-											 //new Vector2(-x, -y)
-				}
+               new Vector2(-x, +y)
+            },
+            true
          );
-      } // end DrawOutline()
+      }
 
       private void DrawHalfLine (Transform parent)
       {
-         LineRenderer halfLine = GameObject.Instantiate(components.LineRenderer, parent);
-         halfLine.name = "Half Line";
-
-         halfLine.positionCount = 2;
-         halfLine.SetPositions(
+         CreateLine(
+            parent,
+            "Half Line",
             new Vector3[2] {
                new Vector2(-(width/2), 0),
                new Vector2(+(width/2), 0)
-            }
+            },
+            false
          );
       }
 
@@ -286,89 +245,188 @@ namespace My.Football.Fields
          //	Position: 
          //	 >	(0 -> 0 + 0)
          //	 >	(1 -> 0 + 1)
-         int
-            initialX = 0 - (width / 2),
-            initialY = 0 - (length / 2);
 
-         Transform arcParent = TransformFactory.CreateChild("Corner Arcs", parent);
+         int halfWidth = width / 2;
+         int halfLength = length / 2;
+
+         parent = TransformFactory.CreateChild("Corner Arcs", parent);
 
          for (var xi = 0; xi < 2; xi++)
          {
             for (var yj = 0; yj < 2; yj++)
             {
-               // 1. Instantiate the GameObject
-               Transform arc = GameObject.Instantiate(components.CornerArc, arcParent).transform;
+               var goBuilder = new GameObjectBuilder("Corner").SetParent(parent);
 
-               // 2. Position the GameObject
-               arc.localPosition = new Vector2(
-                  initialX + (width * xi),
-                  initialY + (length * yj)
-               );
+               DrawCornerArc(goBuilder.Build().transform);
 
-               // 3. Scale (flip) the image
-               arc.localScale = new Vector2(
-                  -((xi * 2) - 1),
-                  -((yj * 2) - 1)
-               );
+               // position and scale specific to each corner.
+               var scaleX = xi == 0 ? +1 : -1;
+               var scaleY = yj == 0 ? +1 : -1;
+
+               goBuilder
+                  .SetLocalPosition(new Vector2(halfWidth * -scaleX, halfLength * -scaleY))
+                  .SetLocalScale(new Vector2(scaleX, scaleY));
             }
          }
       } // end DrawCornerArcs()
 
-      private void DrawCenter (Transform parent)
+      private void DrawCornerArc(Transform parent)
       {
-         Transform t = GameObject.Instantiate(components.CenterCircle, parent).transform;
-         t.localPosition = Vector2.zero;
+         var cornerArc = CreateLocalSprite(
+            parent: parent,
+            name: "Corner Arc",
+            position: Vector2.zero,
+            sprite: components.CornerArc,
+            size: 1
+         );
+
+         cornerArc.flipY = true;
+
+         var restrainingArc = CreateLocalSprite(
+            parent: parent,
+            name: "Corner Arc",
+            position: Vector2.zero,
+            sprite: components.CornerRestrainingArc,
+            size: 0.5f,
+            drawMode: SpriteDrawMode.Tiled
+         );
+
+         restrainingArc.transform.localScale = new Vector2(fieldConfig.CenterCircleDiameter, fieldConfig.CenterCircleDiameter);
+       
+         restrainingArc.flipX = true;
+         restrainingArc.flipY = true;
       }
 
-      private void DrawPenaltyAreas (Transform parent)
+      private void DrawCenter (Transform parent)
       {
-         // DrawPenaltyAreas
-         //				scale		position
-         // Defense	1,+1		0,-length/2 = -length/2 + 0*length
-         // Attack	1,-1		0,+length/2 = -length/2 + 1*length
+         CreateLocalSprite(
+            parent,
+            "Center Spot",
+            Vector2.zero,
+            components.Circle,
+            fieldConfig.CenterSpotDiameter,
+            SpriteDrawMode.Simple
+         );
 
-         var bottomCenterY = -(length / 2);
+         CreateLocalSprite(
+            parent,
+            "Center Circle",
+            Vector2.zero,
+            components.CenterCircle,
+            fieldConfig.CenterCircleDiameter
+         );
+      }
 
-         for (var i = 0; i < 2; i++)
-         {
-            Transform area = GameObject.Instantiate(components.PenaltyArea, parent).transform;
-
-            // 2. Position the GameObject
-            area.localPosition = new Vector2(
-               0,
-               bottomCenterY + (length * i)
-            );
-
-            // 3. Scale (flip) the image
-            area.localScale = new Vector2(
-               1,
-               1 - (i * 2)
-            );
-         }
-      } // end DrawPenaltyAreas()
-
-      private void DrawGoals ()
+      private void DrawHalfFieldMarkings (Transform parent, int scale)
       {
-         for (var i = 0; i < 2; i++)
-         {
-            // Instantiate, Scale and Position the Prefab
-            Transform area = GameObject.Instantiate(components.Goal, transform).transform;
-            area.localPosition = new Vector2(0, -(length / 2) + (length * i));
-            area.localScale = new Vector2(1, -((i * 2) - 1));
+         var goalLineY = -(length / 2f) * scale;
+         var halfGoalWidth = fieldConfig.GoalWidth / 2f;
+         float halfLineWidth = fieldConfig.LineWidth / 2f;
 
-            // LineRenderer: goal POSTS & CROSSBAR
-            LineRenderer lr = area.GetComponent<LineRenderer>();
-            lr.sortingLayerName = FIELD_SORTING_LAYER;
-            lr.sortingOrder = LINES_ORDER;
+         var goBuilder = new GameObjectBuilder("Half Field Markings").SetParent(parent);
 
-            lr.startColor = lr.endColor = fieldStyle.LineColor;
+         parent = goBuilder.Build().transform;
 
-            // SpriteRenderer: goal NETTING
-            SpriteRenderer sr = area.GetComponentInChildren<SpriteRenderer>();
-            sr.sortingLayerName = FIELD_SORTING_LAYER;
-            sr.sortingOrder = LINES_ORDER - 1;
-            sr.color = fieldStyle.NetColor;
-         }
+         // Goal Area
+         DrawBox(
+            parent,
+            "Goal Area",
+            0,
+            halfGoalWidth,
+            fieldConfig.GoalAreaSize,
+            halfLineWidth);
+
+         // Penalty Area
+         DrawBox(
+            parent,
+            "Penalty Area",
+            0,
+            halfGoalWidth,
+            fieldConfig.PenaltyBoxSize,
+            halfLineWidth);
+
+         // Penalty Spot
+         CreateLocalSprite(
+            parent,
+            "Penalty Spot",
+            new Vector2(0, fieldConfig.PenaltySpotDistance),
+            components.Circle,
+            fieldConfig.PenaltySpotDiameter,
+            SpriteDrawMode.Simple);
+
+         // Penalty Arc
+         CreateLocalSprite(
+            parent,
+            "Penalty Arc",
+            new Vector2(0, fieldConfig.PenaltyBoxSize),
+            components.PenaltyArc,
+            new Vector2(1, fieldConfig.PenaltyArcHeight / fieldConfig.CenterCircleDiameter), // components.CenterCircleDiameter,
+            SpriteDrawMode.Tiled
+         ).transform.localScale = new Vector2(fieldConfig.CenterCircleDiameter, -fieldConfig.CenterCircleDiameter);
+
+         DrawGoal(parent);
+
+         goBuilder.SetLocalPosition(new Vector2(0, goalLineY))
+                  .SetLocalScale(new Vector2(1, scale));
+      }
+
+      private void DrawGoal (Transform parent)
+      {
+         parent = TransformFactory.CreateChild("Goal", parent);
+         //new GameObjectBuilder("Goal").SetParent(parent);
+
+         //parent = goBuilder.Build().transform;
+
+         // fieldStyle.LineWidth
+
+         var halfLineWidth = fieldConfig.HalfLineWidth;
+         var halfGoalWidth = (fieldConfig.GoalWidth / 2) + halfLineWidth;
+
+         var baseY = fieldConfig.LineWidth;
+         var depthY = -fieldConfig.GoalDepth - halfLineWidth;
+
+         // Goal Outline
+         CreateLine(
+            parent: parent,
+            name: "Goal Outline",
+            points: new Vector3[4] {
+               new Vector2(-halfGoalWidth, baseY),
+               new Vector2(-halfGoalWidth, depthY),
+               new Vector2(+halfGoalWidth, depthY),
+               new Vector2(+halfGoalWidth, baseY)
+            },
+            loop: false
+         );
+
+         // Netting
+         SpriteRendererFactory.CreateLocal(
+            parent,
+            "Goal Netting",
+            new Vector2(0, -fieldConfig.GoalDepth / 2),
+            components.Square,
+            fieldStyle.NetColor,
+            new Vector2(fieldConfig.GoalWidth, fieldConfig.GoalDepth),
+            FIELD_SORTING_LAYER,
+            LINES_ORDER - 1
+         );
+      }
+
+      private void DrawBox (Transform parent, string name, float baseY, float halfGoalWidth, float boxSize, float halfLineWidth)
+      {
+         var halfWidth = halfGoalWidth + boxSize - halfLineWidth;
+         var topY = baseY + boxSize - halfLineWidth;
+
+         CreateLine(
+            parent: parent,
+            name: name,
+            points: new Vector3[4] {
+               new Vector2(-halfWidth, baseY),
+               new Vector2(-halfWidth, topY),
+               new Vector2(+halfWidth, topY),
+               new Vector2(+halfWidth, baseY)
+            },
+            loop: false
+         );
       }
 
       #endregion
@@ -387,13 +445,13 @@ namespace My.Football.Fields
          Transform xBoundries = TransformFactory.CreateChild("X Boundries", header);
          Transform yBoundries = TransformFactory.CreateChild("Y Boundries", header);
 
-         if (zoneStyle.ZoneBoarderWidth > 0)
+         if (zoneStyle.BoarderWidth > 0)
          {
             DrawXZoneBoarders(xBoundries);
             DrawYZoneBoarders(yBoundries);
          }
 
-         if (zoneStyle.ZoneDividerWidth > 0)
+         if (zoneStyle.DividerWidth > 0)
          {
             DrawXZoneDividers(xBoundries);
             DrawYZoneDividers(yBoundries);
@@ -405,7 +463,7 @@ namespace My.Football.Fields
          var zoneWidths = zoneModel.HorizontalZoneWidths;
          float x = -(width / 2);
          float yBoarder = length / 2;
-         float halfWidth = zoneStyle.ZoneBoarderWidth / 2;
+         float halfWidth = zoneStyle.BoarderWidth / 2;
 
          for (var i = 0; i < zoneWidths.Length - 1; i++)
          {
@@ -416,14 +474,14 @@ namespace My.Football.Fields
             LineRendererFactory.CreateLocal(
                parent,
                "Line - XBoarder - " + (i + 1),
-               zoneStyle.ZoneLinesMaterial,
-               zoneStyle.ZoneBoarderWidth,
-               zoneStyle.ZoneBoarderColor,
+               zoneStyle.LinesMaterial,
+               zoneStyle.BoarderWidth,
+               zoneStyle.BoarderColor,
                new Vector3[] {
                   new Vector2(xPos, -yBoarder),
                   new Vector2(xPos, +yBoarder)
                },
-               FIELD_SORTING_LAYER,
+               false, FIELD_SORTING_LAYER,
                LINES_ORDER - 1
             );
          }
@@ -435,7 +493,7 @@ namespace My.Football.Fields
          float
             y = -(length / 2f),
             xBoarder = width / 2f,
-            halfWidth = zoneStyle.ZoneBoarderWidth / 2f;
+            halfWidth = zoneStyle.BoarderWidth / 2f;
 
          for (var i = 0; i < zoneWidths.Length - 1; i++)
          {
@@ -446,14 +504,14 @@ namespace My.Football.Fields
             LineRendererFactory.CreateLocal(
                parent,
                "Line - XBoarder - " + (i + 1),
-               zoneStyle.ZoneLinesMaterial,
-               zoneStyle.ZoneBoarderWidth,
-               zoneStyle.ZoneBoarderColor,
+               zoneStyle.LinesMaterial,
+               zoneStyle.BoarderWidth,
+               zoneStyle.BoarderColor,
                new Vector3[] {
                   new Vector2(-xBoarder, yPos),
                   new Vector2(+xBoarder, yPos)
                },
-               FIELD_SORTING_LAYER,
+               false, FIELD_SORTING_LAYER,
                LINES_ORDER - 1
             );
          }
@@ -466,7 +524,7 @@ namespace My.Football.Fields
          float
             x = -(width / 2f),
             yBoarder = length / 2f,
-            halfWidth = zoneStyle.ZoneDividerWidth / 2f;
+            halfWidth = zoneStyle.DividerWidth / 2f;
 
          for (var i = 0; i < zoneWidths.Length; i++)
          {
@@ -477,14 +535,14 @@ namespace My.Football.Fields
             LineRendererFactory.CreateLocal(
                parent,
                "Line - XDivider - " + (i + 1),
-               zoneStyle.ZoneLinesMaterial,
-               zoneStyle.ZoneDividerWidth,
-               zoneStyle.ZoneDividerColor,
+               zoneStyle.LinesMaterial,
+               zoneStyle.DividerWidth,
+               zoneStyle.DividerColor,
                new Vector3[] {
                   new Vector2(xPos, -yBoarder),
                   new Vector2(xPos, +yBoarder)
                },
-               FIELD_SORTING_LAYER,
+               false, FIELD_SORTING_LAYER,
                LINES_ORDER - 1
             );
 
@@ -498,7 +556,7 @@ namespace My.Football.Fields
          float
             y = -(length / 2f),
             xBoarder = width / 2f,
-            halfWidth = zoneStyle.ZoneBoarderWidth / 2f;
+            halfWidth = zoneStyle.BoarderWidth / 2f;
 
          for (var i = 0; i < zoneDepths.Length; i++)
          {
@@ -509,14 +567,14 @@ namespace My.Football.Fields
             LineRendererFactory.CreateLocal(
                parent,
                "Line - YDivider - " + (i + 1),
-               zoneStyle.ZoneLinesMaterial,
-               zoneStyle.ZoneDividerWidth,
-               zoneStyle.ZoneDividerColor,
+               zoneStyle.LinesMaterial,
+               zoneStyle.DividerWidth,
+               zoneStyle.DividerColor,
                new Vector3[] {
                   new Vector2(-xBoarder, yPos),
                   new Vector2(+xBoarder, yPos)
                },
-               FIELD_SORTING_LAYER,
+               false, FIELD_SORTING_LAYER,
                LINES_ORDER - 1
             );
             y += zoneDepths[i];
@@ -533,21 +591,66 @@ namespace My.Football.Fields
       /// Align the position of a line renderer point so the edge of the line is flush with z
       /// </summary>
       /// <param name="position">the variable to align</param>
-      /// <param name="lineWidth">half the width of the line</param>
+      /// <param name="halfLineWidth">half the width of the line</param>
       /// <param name="alignTowardZero">inline towards zero? or away from zero?</param>
       /// <returns></returns>
-      private static float AlignPosition (float position, float lineWidth, bool alignTowardZero = true)
+      private static float AlignPosition (float position, float halfLineWidth, bool alignTowardZero = true)
       {
          float result = 0;
 
          if (position != 0)
          {
             result = ((position < 0) == alignTowardZero)
-               ? position + lineWidth
-               : position - lineWidth;
+               ? position + halfLineWidth
+               : position - halfLineWidth;
          }
 
          return result;
+      }
+
+      private SpriteRenderer CreateLocalSprite (Transform parent, string name, Vector2 position, Sprite sprite, float size, SpriteDrawMode drawMode = SpriteDrawMode.Sliced)
+      {
+         return SpriteRendererFactory.CreateLocal(
+            parent,
+            name,
+            position,
+            sprite,
+            fieldStyle.LineColor,
+            new Vector2(size, size),
+            FIELD_SORTING_LAYER,
+            LINES_ORDER,
+            drawMode
+         );
+      }
+
+      private SpriteRenderer CreateLocalSprite (Transform parent, string name, Vector2 position, Sprite sprite, Vector2 size, SpriteDrawMode drawMode = SpriteDrawMode.Sliced)
+      {
+         return SpriteRendererFactory.CreateLocal(
+            parent,
+            name,
+            position,
+            sprite,
+            fieldStyle.LineColor,
+            size,
+            FIELD_SORTING_LAYER,
+            LINES_ORDER,
+            drawMode
+         );
+      }
+
+      private void CreateLine (Transform parent, string name, Vector3[] points, bool loop)
+      {
+         LineRendererFactory.CreateLocal(
+            parent,
+            name,
+            components.LineMaterial,
+            fieldConfig.LineWidth,
+            fieldStyle.LineColor,
+            points,
+            loop,
+            FIELD_SORTING_LAYER,
+            LINES_ORDER
+         );
       }
    }
 }

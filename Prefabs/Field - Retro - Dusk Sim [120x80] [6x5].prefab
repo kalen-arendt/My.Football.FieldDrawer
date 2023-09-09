@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4315360893113391045}
-  - component: {fileID: 356736815918913753}
+  - component: {fileID: -8513170734890638948}
   m_Layer: 8
   m_Name: Field - Retro - Dusk Sim [120x80] [6x5]
   m_TagString: Untagged
@@ -27,11 +27,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &356736815918913753
+--- !u!114 &-8513170734890638948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,16 +41,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7232321501780043070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cb409df4b6aa704288226f754162d2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d4d48d682f8b194bac1bc19c1c71ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 4e15561eada5baa4e8389c3422798e32, type: 2}
-  components: {fileID: 11400000, guid: 0a2cfa337d1659c4bbbf23d42e4a27f9, type: 2}
-  fieldStyle: {fileID: 11400000, guid: e126d7f5fb1ca1b4f92a1ffd743e2896, type: 2}
-  zoneStyle: {fileID: 11400000, guid: 97912cac42ae75b4eae252ea1f9704da, type: 2}
-  drawer:
-    config: {fileID: 11400000, guid: 4e15561eada5baa4e8389c3422798e32, type: 2}
+  fieldSetup:
+    categoryConfig: {fileID: 11400000, guid: 803b597a30c409546994dceb78ff794c, type: 2}
     components: {fileID: 11400000, guid: 0a2cfa337d1659c4bbbf23d42e4a27f9, type: 2}
+    layersAndSortingOrder: {fileID: 11400000, guid: 653b8886051521348a3b9d329be0c078, type: 2}
+    zoneModel: {fileID: 11400000, guid: 4e15561eada5baa4e8389c3422798e32, type: 2}
     fieldStyle: {fileID: 11400000, guid: e126d7f5fb1ca1b4f92a1ffd743e2896, type: 2}
     zoneStyle: {fileID: 11400000, guid: 97912cac42ae75b4eae252ea1f9704da, type: 2}
-    transform: {fileID: 4315360893113391045}

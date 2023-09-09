@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 61bd487fbc6d1aa469c0bb4cf0363ed3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - grass: {fileID: 7482667652216324306, guid: 746890af97b513840b83c856c6d96ca0, type: 3}
+  - goalNetting: {fileID: 7482667652216324306, guid: 746890af97b513840b83c856c6d96ca0, type: 3}
+  - centerSpot: {fileID: 21300000, guid: c211522acd73a5a41bc38eefc2a59264, type: 3}
+  - penaltySpot: {fileID: 21300000, guid: c211522acd73a5a41bc38eefc2a59264, type: 3}
+  - cornerArc: {fileID: 21300000, guid: e67a2bbab1c70a748b6fbddc1ffd2beb, type: 3}
+  - centerCircle: {fileID: 21300000, guid: c0619b963603272438ed995306a99a9e, type: 3}
+  - penaltyArc: {fileID: 21300006, guid: c0619b963603272438ed995306a99a9e, type: 3}
+  - cornerRestrainingArc: {fileID: -1221851999, guid: c0619b963603272438ed995306a99a9e, type: 3}
+  - lineMaterial: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

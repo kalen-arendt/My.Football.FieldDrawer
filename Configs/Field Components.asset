@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bd487fbc6d1aa469c0bb4cf0363ed3, type: 3}
   m_Name: Field Components
   m_EditorClassIdentifier: 
-  defensivePenaltyArea: {fileID: 9163452454751591693, guid: 83ba1cacf68a9814a9c199ade53c4e7a,
-    type: 3}
-  bottomLeftCornerArc: {fileID: 523206471668841475, guid: eff8304b35d0f66408cef568be29f87e,
-    type: 3}
-  centerCircle: {fileID: 4414798193360541060, guid: 09e72a2ee929d734cae33285d6ca3a09,
-    type: 3}
-  goal: {fileID: 4632463647886834854, guid: 14b23e9564dbe8345ae289e01f505dc1, type: 3}
-  grass: {fileID: 21300000, guid: af83ade958187f547b55d6a55670e2f0, type: 3}
-  lineRenderer: {fileID: 2983640992299707095, guid: 7aba1cc2d53b0004a9662fb2c3e40290,
-    type: 3}
+  grass: {fileID: 7482667652216324306, guid: 746890af97b513840b83c856c6d96ca0, type: 3}
+  goalNetting: {fileID: 7482667652216324306, guid: 746890af97b513840b83c856c6d96ca0, type: 3}
+  centerSpot: {fileID: 21300000, guid: c211522acd73a5a41bc38eefc2a59264, type: 3}
+  penaltySpot: {fileID: 21300000, guid: c211522acd73a5a41bc38eefc2a59264, type: 3}
+  cornerArc: {fileID: 21300000, guid: e67a2bbab1c70a748b6fbddc1ffd2beb, type: 3}
+  centerCircle: {fileID: 21300000, guid: c0619b963603272438ed995306a99a9e, type: 3}
+  penaltyArc: {fileID: 21300006, guid: c0619b963603272438ed995306a99a9e, type: 3}
+  cornerRestrainingArc: {fileID: -1221851999, guid: c0619b963603272438ed995306a99a9e, type: 3}
+  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}

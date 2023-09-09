@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using My.Football.Fields.Setup;
+
+using UnityEngine;
 
 namespace My.Football.Fields
 {
@@ -11,7 +13,7 @@ namespace My.Football.Fields
       [SerializeField] private FieldStyle fieldStyle;
       [SerializeField] private FieldZoneStyle zoneStyle;
 
-      [HideInInspector]
+      //[HideInInspector]
       [SerializeField] private FieldDrawer drawer;
 
       public FieldZoneModel Config => config;
