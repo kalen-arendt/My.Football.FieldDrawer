@@ -52,7 +52,7 @@ namespace My.Football.Fields.Painters
             parent,
             "Goal Netting",
             new Vector2(0, -fieldSetup.Category.GoalDepth / 2),
-            fieldSetup.Components.Square,
+            fieldSetup.Components.GrassSquare,
             fieldSetup.FieldStyle.NetColor,
             new Vector2(fieldSetup.Category.GoalWidth, fieldSetup.Category.GoalDepth),
             fieldSetup.LayersAndSortingOrder.SortingLayer,

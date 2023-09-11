@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbae4cae79145e428830adc6bbdab26, type: 3}
+  m_Name: '[11v11] Field Zones [120x80] [5x5]'
+  m_EditorClassIdentifier: 
+  format: 0
+  verticalZoneDepths: 1800000018000000180000001800000018000000
+  horizontalZoneWidths: 120000000c000000140000000c00000012000000
+  lineWidth: 0.3

@@ -56,9 +56,8 @@ namespace My.Football.Fields.Painters
             parent,
             "Center Spot",
             Vector2.zero,
-            fieldSetup.Components.Circle,
-            fieldSetup.Category.CenterSpotDiameter,
-            SpriteDrawMode.Simple
+            fieldSetup.Components.CenterSpot,
+            fieldSetup.Category.CenterSpotDiameter
          );
 
          CreateLocalSprite(

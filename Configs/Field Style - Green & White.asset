@@ -15,7 +15,7 @@ MonoBehaviour:
   bkgGrassColor: {r: 0, g: 0.46875, b: 0.24, a: 1}
   grassColor: {r: 0, g: 0.703125, b: 0, a: 1}
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  netColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+  netColor: {r: 1, g: 1, b: 1, a: 0.078431375}
   wZoneColors:
   - {r: 0.5, g: 0.5, b: 0.5, a: 0.15}
   - {r: 0, g: 0, b: 0, a: 0.2}

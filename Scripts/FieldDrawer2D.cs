@@ -1,16 +1,11 @@
-﻿using System.Linq;
-
-using My.Football.Fields.Painters;
+﻿using My.Football.Fields.Painters;
 using My.Football.Fields.Setup;
-using My.Unity.Creational;
 
 using UnityEngine;
 
 namespace My.Football.Fields
 {
-   /// <summary>
-   /// Draw a Field based on a FieldConfig and FieldStyle
-   /// </summary>
+   [SelectionBase]
    public class FieldDrawer2D : MonoBehaviour
    {
       [SerializeField] private FieldSetup fieldSetup;

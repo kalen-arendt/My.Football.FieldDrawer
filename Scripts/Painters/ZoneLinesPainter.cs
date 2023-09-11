@@ -18,7 +18,9 @@ namespace My.Football.Fields.Painters
 
       public void Paint (Transform parent)
       {
-         if (!fieldSetup.ZoneStyle)
+         var zoneBoarders = fieldSetup.ZoneStyle;
+
+         if (!zoneBoarders?.LinesMaterial)
          {
             return;
          }
@@ -80,37 +82,19 @@ namespace My.Football.Fields.Painters
                }
             );
          }
-
-         //for (var i = 0; i < zoneDepths.Length - 1; i++)
-         //{
-         //   y += zoneDepths[i];
-
-         //   var yAligned = AlignPosition(y, fieldSetup.ZoneStyle.HalfBoarderWidth, false);
-
-         //   DrawZoneBoarder(
-         //      parent,
-         //      "Line - YBoarder - " + (i + 1),
-         //      new Vector3[] {
-         //         new Vector2(-fieldSetup.HalfFieldWidth, yAligned),
-         //         new Vector2(+fieldSetup.HalfFieldWidth, yAligned)
-         //      }
-         //   );
-         //}
       }
 
       private void DrawXZoneDividers (Transform parent)
       {
          var zoneWidths = fieldSetup.ZoneModel.HorizontalZoneWidths;
-         float
-            x = -fieldSetup.HalfFieldWidth,
-            yBoarder = fieldSetup.HalfFieldLength,
-            halfWidth = fieldSetup.ZoneStyle.DividerWidth / 2f;
+         var x = -fieldSetup.HalfFieldWidth;
+         var yBoarder = fieldSetup.HalfFieldLength;
 
          for (var i = 0; i < zoneWidths.Length; i++)
          {
             // POSITION
             var halfZoneWidth = zoneWidths[i] / 2f;
-            var xPos = AlignPosition(x + halfZoneWidth, halfWidth, true);
+            var xPos = AlignPosition(x + halfZoneWidth, fieldSetup.ZoneStyle.HalfDividerWidth, true);
 
             DrawZoneDivider(
                parent,
