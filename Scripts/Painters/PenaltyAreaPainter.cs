@@ -34,9 +34,9 @@ namespace My.Football.Fields.Painters
             parent,
             "Penalty Spot",
             new Vector2(0, fieldSetup.Category.PenaltySpotDistance),
-            fieldSetup.Components.Circle,
-            fieldSetup.Category.PenaltySpotDiameter,
-            SpriteDrawMode.Simple);
+            fieldSetup.Components.PenaltySpot,
+            fieldSetup.Category.PenaltySpotDiameter
+         );
       }
 
       private void DrawPenaltyArc (Transform parent)

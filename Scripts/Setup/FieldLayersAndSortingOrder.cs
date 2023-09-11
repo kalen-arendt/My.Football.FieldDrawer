@@ -6,7 +6,7 @@ namespace My.Football.Fields.Setup
    /// prefabs that are used to create parts of the field.
    /// </summary>
    [CreateAssetMenu(fileName = "Field Layers and Sorting Order", menuName = "Field/Layers and Sorting Order")]
-   public class FieldLayersAndSortingOrder : ScriptableObject
+   public class FieldLayersAndSortingOrder : ScriptableObject, IFieldLayersAndSortingOrder
    {
       [Header("GameObject Layer")]
       [SerializeField] private int objectLayer = 8;

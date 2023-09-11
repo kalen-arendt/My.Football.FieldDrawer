@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bd487fbc6d1aa469c0bb4cf0363ed3, type: 3}
+  m_Name: '[9v9] Field Components'
+  m_EditorClassIdentifier: 
+  grass: {fileID: 7482667652216324306, guid: 746890af97b513840b83c856c6d96ca0, type: 3}
+  backgroundGrass: {fileID: -5177388603050735206, guid: 855b2b40495e0de46b0251d180c92444, type: 3}
+  goalNetting: {fileID: 7482667652216324306, guid: 746890af97b513840b83c856c6d96ca0, type: 3}
+  centerSpot: {fileID: -2413806693520163455, guid: c63b1c3dac362464bbc2ae857904c3fc, type: 3}
+  centerCircle: {fileID: 21300000, guid: 37a8bd099f51d144fb432f74ade3257d, type: 3}
+  penaltySpot: {fileID: -2413806693520163455, guid: c63b1c3dac362464bbc2ae857904c3fc, type: 3}
+  penaltyArc: {fileID: 21300006, guid: 37a8bd099f51d144fb432f74ade3257d, type: 3}
+  cornerArc: {fileID: 21300000, guid: e67a2bbab1c70a748b6fbddc1ffd2beb, type: 3}
+  cornerRestrainingArc: {fileID: -1221851999, guid: 37a8bd099f51d144fb432f74ade3257d, type: 3}
+  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}

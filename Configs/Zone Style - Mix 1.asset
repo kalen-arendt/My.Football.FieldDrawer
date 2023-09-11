@@ -15,5 +15,5 @@ MonoBehaviour:
   zoneLinesMaterial: {fileID: 2100000, guid: 77c1cc3fa10438546b2537224c7d72ee, type: 2}
   zoneBoarderWidth: 0.3
   zoneDividerWidth: 0.2
-  zoneBoarderColor: {r: 1, g: 1, b: 1, a: 0.5882353}
+  zoneBoarderColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   zoneDividerColor: {r: 0, g: 0, b: 0, a: 0.23529412}

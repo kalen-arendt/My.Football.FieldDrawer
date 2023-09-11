@@ -20,7 +20,7 @@ namespace My.Football.Fields.Painters
             parent,
             "Background Grass",
             Vector2.zero,
-            fieldSetup.Components.Square,
+            fieldSetup.Components.BackgroundGrass,
             fieldSetup.FieldStyle.BackgroundGrassColor,
             new Vector2(
                fieldSetup.FieldWidth + (fieldSetup.Category.OuterGrassWidth * 2),
@@ -33,7 +33,7 @@ namespace My.Football.Fields.Painters
             parent,
             "Field Grass",
             Vector2.zero,
-            fieldSetup.Components.Square,
+            fieldSetup.Components.GrassSquare,
             fieldSetup.FieldStyle.GrassColor,
             new Vector2(fieldSetup.FieldWidth, fieldSetup.FieldLength),
             fieldSetup.LayersAndSortingOrder.SortingLayer,

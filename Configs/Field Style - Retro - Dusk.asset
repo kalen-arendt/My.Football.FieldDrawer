@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2df54ddaebaac4a9c6d98f306c2c2d, type: 3}
   m_Name: Field Style - Retro - Dusk
   m_EditorClassIdentifier: 
-  grass: {fileID: 21300000, guid: af83ade958187f547b55d6a55670e2f0, type: 3}
   bkgGrassColor: {r: 0.06127626, g: 0.4811321, b: 0.23223549, a: 1}
   grassColor: {r: 0.06127626, g: 0.4811321, b: 0.23223549, a: 1}
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  netColor: {r: 0, g: 0, b: 0, a: 1}
+  netColor: {r: 0, g: 0, b: 0, a: 0.27450982}
   wZoneColors:
   - {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.15686275}
   - {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0.19607843}

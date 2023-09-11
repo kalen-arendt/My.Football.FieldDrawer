@@ -6,7 +6,7 @@ namespace My.Football.Fields.Setup
    /// prefabs that are used to create parts of the field.
    /// </summary>
    [CreateAssetMenu(fileName = "Field Category Config", menuName = "Field/Category Config")]
-   public class FieldCategoryConfig : ScriptableObject
+   public class FieldCategoryConfig : ScriptableObject, IFieldCategoryConfig
    {
       [Header("Goal Dimensions")]
 

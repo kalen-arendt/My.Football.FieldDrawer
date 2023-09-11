@@ -1,4 +1,5 @@
 ﻿using My.Football.Fields.Setup;
+using My.Football.I;
 using My.Unity.Debugging;
 
 using UnityEngine;
@@ -16,22 +17,22 @@ namespace My.Football.Fields.Setup
       [Header("Field Style")]
       [SerializeField] private FieldZoneModel zoneModel;
       [SerializeField] private FieldStyle fieldStyle;
-      [SerializeField] private FieldZoneStyle zoneStyle;
+      [SerializeField] private AbstractZoneBoarderStyle zoneStyle;
 
 
-      public FieldCategoryConfig Category => categoryConfig;
-      public FieldComponents Components => components;
-      public FieldLayersAndSortingOrder LayersAndSortingOrder => layersAndSortingOrder;
+      public IFieldCategoryConfig Category => categoryConfig;
+      public IFieldComponents Components => components;
+      public IFieldLayersAndSortingOrder LayersAndSortingOrder => layersAndSortingOrder;
     
 
-      public FieldZoneModel ZoneModel => zoneModel;
-      public FieldStyle FieldStyle => fieldStyle;
-      public FieldZoneStyle ZoneStyle => zoneStyle;
+      public IFieldZoneModel ZoneModel => zoneModel;
+      public IFieldStyle FieldStyle => fieldStyle;
+      public IFieldZoneStyle ZoneStyle => zoneStyle;
 
       public int FieldWidth { get; private set; }
       public int FieldLength { get; private set; }
-      public int HalfFieldWidth => FieldWidth / 2;
-      public int HalfFieldLength => FieldLength / 2;
+      public float HalfFieldWidth => FieldWidth / 2f;
+      public float HalfFieldLength => FieldLength / 2f;
 
       public bool ValidateSetup()
       {
