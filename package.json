@@ -12,5 +12,8 @@
   "author": {
     "name": "Kalen Arendt",
     "email": "dev.kalenarendt@gmail.com"
+  },
+  "scripts": {
+    "preinstall": "node preinstall.js"
   }
 }
